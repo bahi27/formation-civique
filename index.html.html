@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Civique - Lecteur Vocal Officiel</title>
+    <style>
+        :root {
+            --bleu-france: #000091;
+            --bg-light: #f6f6f6;
+            --jaune-focus: #ffe800;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        /* Titre et Sélecteur */
+        header {
+            border-bottom: 2px solid var(--bleu-france);
+            padding: 15px;
+            text-align: center;
+            background: white;
+        }
+
+        .theme-nav {
+            background: var(--bleu-france);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        select {
+            padding: 12px;
+            font-size: 1rem;
+            border: none;
+            width: 90%;
+            max-width: 500px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Zone de lecture (1/3 de la page au centre) */
+        main {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--bg-light);
+            padding: 40px 20px;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: 33.33vw; /* Le texte occupe le tiers central */
+            text-align: center;
+        }
+
+        #content-area {
+            line-height: 1.6;
+            font-size: 2.2rem; /* Écriture XXL */
+            font-weight: 500;
+            color: #161616;
+            margin-top: 25px;
+            padding-bottom: 50px;
+        }
+
+        /* Éléments Descriptifs (Images/PDF) */
+        .desc-img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            background: white;
+        }
+
+        .pdf-link {
+            display: block;
+            background: #fff;
+            padding: 15px;
+            color: var(--bleu-france);
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid var(--bleu-france);
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .content-container { max-width: 90vw; }
+            #content-area { font-size: 1.8rem; }
+        }
+
+        .highlight { 
+            background-color: var(--jaune-focus); 
+            color: black;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Pied de page et boutons */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: white;
+            border-top: 3px solid var(--bleu-france);
+            gap: 20px;
+        }
+
+        .btn-group { display: flex; gap: 20px; flex: 1; justify-content: center; }
+
+        button {
+            border: 2px solid var(--bleu-france);
+            background: var(--bleu-france);
+            color: white;
+            padding: 18px 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 0 !important; /* Pas d'arrondis */
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        button:hover { background: white; color: var(--bleu-france); }
+
+        .btn-nav { 
+            font-size: 2.5rem; 
+            background: white; 
+            color: var(--bleu-france); 
+            min-width: 80px; 
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="current-title" style="color:var(--bleu-france); margin:0; text-transform: uppercase;">Chargement...</h1>
+    </header>
+
+    <div class="theme-nav">
+        <select id="theme-select" onchange="filterTheme()">
+            <option value="all">TOUTES LES THÉMATIQUES</option>
+            <option value="devise">LA DEVISE ET LES VALEURS</option>
+            <option value="symboles">LES SYMBOLES DE LA RÉPUBLIQUE</option>
+        </select>
+    </div>
+
+    <main id="main-scroll">
+        <div class="content-container">
+            <div id="media-container"></div>
+            <div id="content-area"></div>
+        </div>
+    </main>
+
+    <footer>
+        <button class="btn-nav" onclick="changePage(-1)">←</button>
+        <div class="btn-group">
+            <button onclick="startReading()">Lire</button>
+            <button onclick="stopReading()">Stop</button>
+            <button onclick="resumeReading()">Reprendre</button>
+        </div>
+        <button class="btn-nav" onclick="changePage(1)">→</button>
+    </footer>
+
+    <script>
+        const data = [
+            {
+                theme: "devise",
+                title: "Égalité 3 : La Discrimination",
+                text: "La discrimination est le fait de traiter différemment une personne en raison de son origine, de son sexe, de son handicap, de son orientation sexuelle ou de sa religion. C'est un délit puni par la loi. La DILCRAH, Délégation interministérielle à la lutte contre le racisme, l'antisémitisme et la haine anti-LGBT, coordonne l'action de l'État dans ce domaine.",
+                media: [{ type: 'img', url: 'https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/devise-et-symboles-de-la-republique/egalite-3/logo-dilcrah.png' }]
+            },
+            {
+                theme: "devise",
+                title: "La Fraternité (Partie 1)",
+                text: "La fraternité est ce qui permet aux personnes de vivre ensemble avec harmonie et de former une société. Elle exprime la solidarité entre les citoyens. Elle est présente dans la Déclaration universelle des droits de l'homme de 1948. Elle apparaît officiellement dans la Constitution française en 1848.",
+                media: [{ type: 'img', url: 'https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/devise-et-symboles-de-la-republique/fraternite-1/fraternite-img.png' }]
+            },
+            {
+                theme: "symboles",
+                title: "Le Drapeau Français",
+                text: "Le drapeau tricolore bleu, blanc, rouge est l'emblème national de la République française. Le bleu et le rouge étaient les couleurs de la ville de Paris, le blanc était la couleur du roi. Né en 1789, il symbolise aujourd'hui la France unie. Il est présent sur tous les bâtiments publics.",
+                media: [{ type: 'img', url: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg' }]
+            }
+        ];
+
+        let filtered = [...data];
+        let index = 0;
+        let synthesis = window.speechSynthesis;
+        let utterance = null;
+
+        // Charger les voix de manière fluide
+        let voices = [];
+        const loadVoices = () => {
+            voices = synthesis.getVoices();
+        };
+        loadVoices();
+        synthesis.onvoiceschanged = loadVoices;
+
+        function filterTheme() {
+            const theme = document.getElementById('theme-select').value;
+            filtered = (theme === 'all') ? data : data.filter(d => d.theme === theme);
+            index = 0;
+            display();
+        }
+
+        function display() {
+            if (filtered.length === 0) return;
+            const item = filtered[index];
+            document.getElementById('current-title').textContent = item.title;
+            
+            const mediaBox = document.getElementById('media-container');
+            mediaBox.innerHTML = '';
+            if(item.media) {
+                item.media.forEach(m => {
+                    if(m.type === 'img') mediaBox.innerHTML += `<img src="${m.url}" class="desc-img">`;
+                    if(m.type === 'pdf') mediaBox.innerHTML += `<a href="${m.url}" target="_blank" class="pdf-link">📄 Voir le document descriptif</a>`;
+                });
+            }
+
+            const words = item.text.split(' ');
+            document.getElementById('content-area').innerHTML = words.map((w, i) => `<span id="word-${i}">${w}</span>`).join(' ');
+            stopReading();
+        }
+
+        function startReading() {
+            synthesis.cancel();
+            const text = filtered[index].text;
+            utterance = new SpeechSynthesisUtterance(text);
+            
+            // Sélection d'une voix fluide
+            const bestVoice = voices.find(v => v.lang.includes('fr') && (v.name.includes('Google') || v.name.includes('Premium'))) || voices.find(v => v.lang.includes('fr'));
+            if(bestVoice) utterance.voice = bestVoice;
+            
+            utterance.lang = 'fr-FR';
+            utterance.rate = 0.92;
+
+            utterance.onboundary = (event) => {
+                if (event.name === 'word') {
+                    const currentText = text.substring(0, event.charIndex);
+                    const wordIdx = currentText.split(' ').length - 1;
+                    document.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
+                    const span = document.getElementById(`word-${wordIdx}`);
+                    if (span) {
+                        span.classList.add('highlight');
+                        span.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            };
+            synthesis.speak(utterance);
+        }
+
+        function stopReading() { synthesis.cancel(); }
+        function resumeReading() { synthesis.paused ? synthesis.resume() : startReading(); }
+        function changePage(d) {
+            index = (index + d + filtered.length) % filtered.length;
+            display();
+        }
+
+        // Initialisation
+        setTimeout(display, 100);
+    </script>
+</body>
+</html>
