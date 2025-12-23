@@ -3,259 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Formation Civique Officielle</title>
+    <title>Formation Civique - Officiel</title>
     <style>
-        :root {
-            --bleu-france: #000091;
-            --bg-light: #f6f6f6;
-            --jaune-focus: #ffe800;
-        }
-
+        :root { --bleu-france: #000091; --bg-light: #f6f6f6; --jaune-focus: #ffe800; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: white;
-            overflow: hidden;
-        }
-
-        /* En-tête */
-        header {
-            background: white;
-            border-bottom: 2px solid var(--bleu-france);
-            padding: 15px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        h1 { font-size: 1rem; color: var(--bleu-france); margin: 0; text-transform: uppercase; font-weight: 900; }
-
-        /* Navigation Thématique */
-        .theme-nav {
-            background: var(--bleu-france);
-            padding: 10px;
-            flex-shrink: 0;
-        }
-
-        select {
-            width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            border-radius: 0;
-            border: 2px solid white;
-            background: white;
-            font-weight: bold;
-            color: var(--bleu-france);
-        }
-
-        /* Zone de Lecture */
-        main {
-            flex: 1;
-            overflow-y: auto;
-            background-color: var(--bg-light);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 15px;
-        }
-
-        .content-container {
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-        }
-
-        /* 1/3 sur ordinateur */
-        @media (min-width: 1025px) { .content-container { max-width: 33.33vw; } }
-
-        .desc-img {
-            width: 100%;
-            max-height: 250px;
-            object-fit: contain;
-            background: white;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-        }
-
-        #content-area {
-            line-height: 1.6;
-            font-size: 1.8rem;
-            font-weight: 500;
-            color: #161616;
-            padding-bottom: 60px;
-        }
-
-        .highlight { background-color: var(--jaune-focus); color: black; padding: 2px 4px; }
-
-        /* Contrôles Mobile */
-        footer {
-            background: white;
-            border-top: 3px solid var(--bleu-france);
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-
-        .btn-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        button {
-            border: 2px solid var(--bleu-france);
-            background: var(--bleu-france);
-            color: white;
-            padding: 20px 10px;
-            font-weight: 900;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 0 !important;
-            font-size: 0.9rem;
-            flex: 1;
-        }
-
-        .btn-nav {
-            flex: 0 0 70px;
-            font-size: 2rem;
-            background: white;
-            color: var(--bleu-france);
-        }
-
-        /* Écran d'accueil pour débloquer l'audio */
-        #welcome-screen {
-            position: fixed; top:0; left:0; width:100%; height:100%;
-            background: var(--bleu-france);
-            color: white; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 1000;
-            padding: 30px; text-align: center;
-        }
+        body { font-family: Arial, sans-serif; margin: 0; background-color: var(--bg-light); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        header { background: white; border-bottom: 2px solid var(--bleu-france); padding: 10px; text-align: center; flex-shrink: 0; }
+        h1 { font-size: 0.8rem; color: var(--bleu-france); margin: 0; text-transform: uppercase; }
+        .theme-nav { background: var(--bleu-france); padding: 8px; flex-shrink: 0; }
+        select { width: 100%; padding: 12px; font-size: 16px; font-weight: bold; border: none; background: white; color: var(--bleu-france); border-radius: 0; }
+        main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; padding: 20px 15px 140px 15px; }
+        .content-container { width: 100%; max-width: 600px; text-align: center; }
+        @media (min-width: 1025px) { .content-container { max-width: 33vw; } }
+        .desc-img { width: 100%; max-height: 200px; object-fit: contain; background: white; margin-bottom: 15px; border: 1px solid #ddd; }
+        h2 { color: var(--bleu-france); font-size: 1.3rem; margin: 0 0 10px 0; }
+        #content-area { line-height: 1.5; font-size: 1.7rem; font-weight: 500; }
+        .highlight { background-color: var(--jaune-focus); color: black; padding: 2px; border-radius: 3px; }
+        footer { position: fixed; bottom: 0; width: 100%; background: white; border-top: 3px solid var(--bleu-france); padding: 10px; z-index: 100; }
+        .btn-row { display: flex; gap: 8px; width: 100%; }
+        button { border: 2px solid var(--bleu-france); background: var(--bleu-france); color: white; padding: 18px 5px; font-weight: bold; text-transform: uppercase; cursor: pointer; border-radius: 0; flex: 1; font-size: 0.8rem; }
+        .btn-nav { background: white; color: var(--bleu-france); flex: 0 0 65px; font-size: 1.8rem; }
+        #welcome { position: fixed; top:0; left:0; width:100%; height:100%; background: var(--bleu-france); color:white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; text-align: center; padding: 20px; }
     </style>
 </head>
 <body>
 
-    <div id="welcome-screen" onclick="initApp()">
-        <h1 style="color:white; font-size: 2rem; margin-bottom: 20px;">FORMATION CIVIQUE</h1>
-        <p style="font-size: 1.2rem; margin-bottom: 30px;">Cliquez pour activer la voix fluide et commencer la lecture.</p>
-        <button style="background:white; color:var(--bleu-france); padding: 25px 50px; font-size: 1.5rem; max-width: 300px;">COMMENCER</button>
+<div id="welcome" onclick="initApp()">
+    <h1 style="color:white; font-size: 2rem; margin-bottom: 15px;">FORMATION CIVIQUE</h1>
+    <p>Toutes les fiches (incluant Coq, Marianne, Fête Nationale)</p>
+    <button style="background:white; color:var(--bleu-france); padding: 20px 40px; font-size: 1.2rem;">DÉMARRER</button>
+</div>
+
+<header><h1 id="header-title">RÉPUBLIQUE FRANÇAISE</h1></header>
+
+<div class="theme-nav">
+    <select id="theme-select" onchange="filterTheme()">
+        <option value="devise">LA DEVISE (7 fiches)</option>
+        <option value="symboles">LES SYMBOLES (8 fiches)</option>
+        <option value="laicite">LA LAÏCITÉ (3 fiches)</option>
+        <option value="langue">LA LANGUE (1 fiche)</option>
+        <option value="engagement">L'ENGAGEMENT (1 fiche)</option>
+    </select>
+</div>
+
+<main id="main-scroll">
+    <div class="content-container">
+        <h2 id="page-title">...</h2>
+        <img id="main-img" class="desc-img" src="" style="display:none;">
+        <div id="content-area"></div>
     </div>
+</main>
 
-    <header><h1 id="current-title">Chargement...</h1></header>
-
-    <div class="theme-nav">
-        <select id="theme-select" onchange="filterTheme()">
-            <option value="devise">1. DEVISE ET SYMBOLES</option>
-            <option value="laicite">2. LA LAÏCITÉ</option>
-            <option value="langue">3. LA LANGUE FRANÇAISE</option>
-            <option value="contrat">4. CONTRAT D'ENGAGEMENT</option>
-        </select>
+<footer>
+    <div class="btn-row">
+        <button class="btn-nav" onclick="changePage(-1)">←</button>
+        <button onclick="startReading()">LIRE</button>
+        <button onclick="stopReading()">STOP</button>
+        <button class="btn-nav" onclick="changePage(1)">→</button>
     </div>
+</footer>
 
-    <main id="scroll-target">
-        <div class="content-container">
-            <img id="main-img" class="desc-img" src="" style="display:none;">
-            <div id="content-area"></div>
-        </div>
-    </main>
+<script>
+    const data = [
+        // --- 1. DEVISE (Déjà complet) ---
+        { theme: "devise", title: "La devise française", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/devise-et-symboles-de-la-republique/la-devise-francaise/marianne-devise.png", text: "Liberté, Égalité, Fraternité est la devise de la République française. Elle figure dans la Constitution de 1958." },
+        { theme: "devise", title: "La liberté", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/devise-et-symboles-de-la-republique/la-liberte/liberte-img.png", text: "La liberté est le droit d'agir et de s'exprimer librement. Elle est garantie par la Déclaration des droits de l'homme." },
+        { theme: "devise", title: "L'égalité (1/3)", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/devise-et-symboles-de-la-republique/egalite-1/egalite-img.png", text: "L'égalité signifie que tous les citoyens ont les mêmes droits. La loi est la même pour tous." },
+        { theme: "devise", title: "L'égalité (2/3) - Femmes/Hommes", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/devise-et-symboles-de-la-republique/egalite-2/egalite-fh-img.png", text: "L'égalité entre les femmes et les hommes est inscrite dans la Constitution. Elles ont les mêmes droits civils et politiques." },
+        { theme: "devise", title: "L'égalité (3/3) - Discrimination", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/devise-et-symboles-de-la-republique/egalite-3/logo-dilcrah.png", text: "La discrimination est un délit. On ne peut pas écarter une personne à cause de sa religion ou de son origine." },
+        { theme: "devise", title: "La fraternité (1/2)", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/devise-et-symboles-de-la-republique/fraternite-1/fraternite-img.png", text: "La fraternité est la solidarité entre les citoyens. Elle fonde le vivre ensemble." },
+        { theme: "devise", title: "La fraternité (2/2)", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/devise-et-symboles-de-la-republique/fraternite-2/fraternite-action-img.png", text: "Elle se manifeste par la solidarité nationale, comme la sécurité sociale ou les aides sociales." },
 
-    <footer>
-        <div class="btn-row">
-            <button class="btn-nav" onclick="changePage(-1)">←</button>
-            <button onclick="startReading()">LIRE</button>
-            <button onclick="stopReading()">STOP</button>
-            <button class="btn-nav" onclick="changePage(1)">→</button>
-        </div>
-    </footer>
+        // --- 2. SYMBOLES (AJOUTS COQ, SCEAU, ETC) ---
+        { theme: "symboles", title: "Le Drapeau Français", img: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg", text: "Le bleu, le blanc et le rouge sont les couleurs nationales. Elles représentent l'unité de la France." },
+        { theme: "symboles", title: "La Marseillaise", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/les-symboles-de-la-republique/la-marseillaise/marseillaise-img.png", text: "L'hymne national a été composé en 1792. Il est chanté lors des cérémonies officielles et sportives." },
+        { theme: "symboles", title: "Marianne", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/les-symboles-de-la-republique/marianne/marianne-img.png", text: "Marianne est la figure de la République. Elle porte le bonnet phrygien, symbole de la liberté." },
+        { theme: "symboles", title: "Le 14 Juillet", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/les-symboles-de-la-republique/la-fete-nationale/14-juillet-img.png", text: "La fête nationale célèbre la prise de la Bastille de 1789 et la fête de la Fédération de 1790." },
+        { theme: "symboles", title: "Le Coq Gaulois", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/les-symboles-de-la-republique/le-coq/coq-img.png", text: "Le coq est un symbole de la vigilance et de la fierté française. On le retrouve souvent sur les monuments aux morts et les maillots sportifs." },
+        { theme: "symboles", title: "Le Faisceau de Licteur", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/les-symboles-de-la-republique/le-faisceau-de-licteur/faisceau-img.png", text: "Le faisceau représente l'union et la force des citoyens rassemblés pour défendre la liberté." },
+        { theme: "symboles", title: "Le Sceau de la République", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/les-symboles-de-la-republique/le-sceau/sceau-img.png", text: "Le sceau officiel de la République représente la Liberté assise. Il sert à sceller les actes très importants comme la Constitution." },
+        { theme: "symboles", title: "Logotype de la République", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/les-symboles-de-la-republique/le-logotype-de-letat/bloc-marque.png", text: "Le logo officiel combine Marianne, le drapeau et la devise. Il est utilisé par tous les ministères et l'administration." },
 
-    <script>
-        const data = [
-            // A. DEVISE ET SYMBOLES
-            { theme: "devise", title: "La Devise Française", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/devise-et-symboles-de-la-republique/la-devise-francaise/marianne-devise.png", text: "La devise de la République est Liberté, Égalité, Fraternité. Elle est inscrite dans la Constitution. La Liberté consiste à pouvoir faire tout ce qui ne nuit pas à autrui. L'Égalité signifie que la loi est la même pour tous. La Fraternité est un devoir de solidarité entre les citoyens." },
-            { theme: "devise", title: "Le Drapeau Français", img: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg", text: "Le drapeau tricolore bleu, blanc, rouge est l'emblème national de la République française. Il est né de la réunion des couleurs du Roi (le blanc) et de la ville de Paris (le bleu et le rouge). Il flotte sur tous les édifices publics." },
-            
-            // C. LAÏCITÉ
-            { theme: "laicite", title: "Le Principe de Laïcité", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/la-laicite/la-laicite-principe-de-liberte/laicite-img.png", text: "La France est une République laïque. La laïcité garantit la liberté de conscience : chacun est libre de croire ou de ne pas croire. Elle sépare les religions de l'État. L'État ne reconnaît, ne salarie, ni ne subventionne aucun culte." },
-            
-            // D. LANGUE
-            { theme: "langue", title: "La Langue de la République", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/la-langue-de-la-republique/langue-img.png", text: "L'article 2 de la Constitution dispose que la langue de la République est le français. C'est un lien fondamental d'unité du peuple français et un outil indispensable pour l'intégration des étrangers souhaitant s'installer durablement en France." },
-            
-            // E. CONTRAT ENGAGEMENT
-            { theme: "contrat", title: "Le Contrat d'Engagement", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/contrat-dengagement-republicain/engagement-img.png", text: "Le contrat d'engagement républicain est souscrit par les associations qui sollicitent des subventions publiques. Elles s'engagent à respecter les principes de liberté, d'égalité, de fraternité, à ne pas remettre en cause le caractère laïque de la République et à respecter l'ordre public." }
-        ];
+        // --- 3. LAÏCITÉ ---
+        { theme: "laicite", title: "Principe de Laïcité", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/la-laicite/la-laicite-principe-de-liberte/laicite-img.png", text: "La laïcité permet à chacun de choisir sa religion ou de ne pas en avoir. L'État est neutre face aux cultes." },
+        { theme: "laicite", title: "Laïcité et Service Public", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/la-laicite/la-laicite-dans-les-services-publics/marianne-laicite.png", text: "Les agents de l'État ne doivent pas montrer leurs opinions religieuses pour garantir l'égalité des usagers." },
+        { theme: "laicite", title: "Loi de 1905", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/la-laicite/la-loi-de-1905-en-france/loi-1905-img.png", text: "Cette loi historique sépare les Églises et l'État, assurant la neutralité de la puissance publique." },
 
-        let filtered = [];
-        let index = 0;
-        let synth = window.speechSynthesis;
-        let speech = new SpeechSynthesisUtterance();
+        // --- 4. LANGUE ---
+        { theme: "langue", title: "Le Français", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/la-langue-de-la-republique/langue-img.png", text: "La langue de la République est le français. Elle est un facteur d'unité et de partage de notre culture." },
 
-        function initApp() {
-            document.getElementById('welcome-screen').style.display = 'none';
-            // Force le chargement des voix
-            synth.getVoices();
-            filterTheme();
-        }
+        // --- 5. ENGAGEMENT ---
+        { theme: "engagement", title: "Contrat Républicain", img: "https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/principes-et-valeurs-de-la-republique/contrat-dengagement-republicain/engagement-img.png", text: "Les associations s'engagent à respecter les valeurs républicaines pour obtenir des subventions de l'État." }
+    ];
 
-        function filterTheme() {
-            const selected = document.getElementById('theme-select').value;
-            filtered = data.filter(d => d.theme === selected);
-            index = 0;
-            display();
-        }
+    let filtered = []; let index = 0; let synth = window.speechSynthesis; let speech = new SpeechSynthesisUtterance();
 
-        function display() {
-            if (filtered.length === 0) return;
-            const item = filtered[index];
-            document.getElementById('current-title').textContent = item.title;
-            const img = document.getElementById('main-img');
-            img.src = item.img;
-            img.style.display = 'block';
-            
-            const words = item.text.split(' ');
-            document.getElementById('content-area').innerHTML = words.map((w, i) => `<span id="word-${i}">${w}</span>`).join(' ');
-            synth.cancel();
-        }
-
-        function startReading() {
-            synth.cancel();
-            speech = new SpeechSynthesisUtterance(filtered[index].text);
-            
-            // Sélection Voix Haute Qualité
-            const voices = synth.getVoices();
-            const bestVoice = voices.find(v => v.lang.includes('fr') && (v.name.includes('Google') || v.name.includes('Premium'))) || voices.find(v => v.lang.includes('fr'));
-            
-            speech.voice = bestVoice;
-            speech.lang = 'fr-FR';
-            speech.rate = 0.92;
-
-            speech.onboundary = (event) => {
-                if (event.name === 'word') {
-                    const charCount = event.charIndex;
-                    const wordIdx = filtered[index].text.substring(0, charCount).trim().split(/\s+/).length - 1;
-                    
-                    document.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
-                    const span = document.getElementById(`word-${wordIdx >= 0 ? wordIdx : 0}`);
-                    if (span) {
-                        span.classList.add('highlight');
-                        span.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }
-            };
-            synth.speak(speech);
-        }
-
-        function stopReading() { synth.cancel(); }
-        function changePage(d) {
-            index = (index + d + filtered.length) % filtered.length;
-            display();
-        }
-
-        window.speechSynthesis.onvoiceschanged = () => synth.getVoices();
-    </script>
+    function initApp() { document.getElementById('welcome').style.display = 'none'; filterTheme(); }
+    function filterTheme() { 
+        filtered = data.filter(d => d.theme === document.getElementById('theme-select').value);
+        index = 0; display(); 
+    }
+    function display() {
+        const item = filtered[index];
+        document.getElementById('page-title').textContent = item.title;
+        const img = document.getElementById('main-img');
+        img.src = item.img; img.style.display = 'block';
+        document.getElementById('content-area').innerHTML = item.text.split(' ').map((w, i) => `<span id="word-${i}">${w}</span>`).join(' ');
+        synth.cancel();
+        document.getElementById('main-scroll').scrollTop = 0;
+    }
+    function startReading() {
+        synth.cancel();
+        speech = new SpeechSynthesisUtterance(filtered[index].text);
+        const voices = synth.getVoices();
+        speech.voice = voices.find(v => (v.name.includes('Google') || v.name.includes('Premium')) && v.lang.startsWith('fr')) || voices.find(v => v.lang.startsWith('fr'));
+        speech.lang = 'fr-FR'; speech.rate = 0.9;
+        speech.onboundary = (event) => {
+            if (event.name === 'word') {
+                const wordIdx = filtered[index].text.substring(0, event.charIndex).trim().split(/\s+/).length - 1;
+                document.querySelectorAll('.highlight').forEach(el => el.classList.remove('highlight'));
+                const span = document.getElementById(`word-${wordIdx >= 0 ? wordIdx : 0}`);
+                if (span) { span.classList.add('highlight'); span.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            }
+        };
+        synth.speak(speech);
+    }
+    function stopReading() { synth.cancel(); }
+    function changePage(d) { index = (index + d + filtered.length) % filtered.length; display(); }
+    window.speechSynthesis.onvoiceschanged = () => synth.getVoices();
+</script>
 </body>
 </html>
